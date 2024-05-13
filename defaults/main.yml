@@ -1,0 +1,12 @@
+---
+# user_groups: {}
+user_groups:
+  admins:
+    - name: admin
+      append: True
+      groups:
+        - wheel
+  users:
+    - name: user01
+    - name: user02
+    # - name: admin

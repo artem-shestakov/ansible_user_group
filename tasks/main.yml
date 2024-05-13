@@ -1,0 +1,25 @@
+---
+- name: MAIN | Assert to check list of groups
+  ansible.builtin.assert:
+    that: user_groups.keys() | length > 0
+    fail_msg: One or more groups in user_groups variable must be set
+
+- name: MAIN | Assert to check unique user's names
+  ansible.builtin.assert:
+    that: users_in_groups | map(attribute='name') | list | unique | length == users_in_groups | map(attribute='name') | list | length
+    fail_msg: One or more users are in two or more groups. Use unique user names
+
+- name: MAIN | Update local facts
+  ansible.builtin.setup:
+    gather_subset:
+      - "!all"
+      - local
+
+- name: MAIN | Create groups
+  ansible.builtin.import_tasks: groups.yml
+  tags:
+    - groups
+
+- name: MAIN | Create users
+  ansible.builtin.import_tasks: users.yml
+  tags: users

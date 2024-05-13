@@ -1,0 +1,6 @@
+---
+- name: GROUPS | Ensure group "{{ item.key }}" exists
+  ansible.builtin.group:
+    name: "{{ item.key }}"
+    state: present
+  loop: "{{ lookup('ansible.builtin.dict', user_groups) }}"

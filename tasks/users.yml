@@ -1,0 +1,36 @@
+---
+- name: DEBUG
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ users_in_groups }}"
+
+- name: USER | Create user
+  ansible.builtin.user:
+    append: "{{ item.append | default('False') }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    comment: "{{ item.state | default('\"Created by Ansible at ' + now(utc=false,fmt='%d.%m.%Y %H-%M-%S') + '\"') }}"
+    password: "!"
+    update_password: "always"
+    password_lock: true
+    shell: "{{ item.shell | default(omit) }}"
+    group: "{{ item.group }}"
+    groups: "{{ item.groups | default(omit) }}"
+    create_home: true
+    system: false
+    force: true
+    remove: "{{ item.remove | default(true) }}"
+  loop: "{{ users_in_groups }}"
+
+# - name: "USER | SSH keys: {{ user.name }}"
+#   ansible.posix.authorized_key:
+#     comment: "Ansible managed {{ user.name }}@{{ admins_group }}"
+#     exclusive: true
+#     key: "{{ lookup('file', admins_ssh_dir + '/' + user.name + '.pub') }}"
+#     follow: false
+#     user: "{{ user.name }}"
+#     manage_dir: true
+#     key_options: "{{ user.ssh_key_options | default(omit) }}"
+#     state: present
+#   when:
+#     - ( user.state | default('present') ) != 'absent'
