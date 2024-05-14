@@ -1,4 +1,5 @@
 ---
+ssh_keys_dir: files/ssh_keys
 # user_groups: {}
 user_groups:
   admins:

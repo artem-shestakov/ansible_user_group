@@ -1,8 +1,8 @@
 ---
-- name: DEBUG
-  debug:
-    msg: "{{ item }}"
-  loop: "{{ users_in_groups }}"
+# - name: DEBUG
+#   debug:
+#     msg: "{{ item }}"
+#   loop: "{{ users_in_groups }}"
 
 - name: USER | Create user
   ansible.builtin.user:
@@ -22,15 +22,16 @@
     remove: "{{ item.remove | default(true) }}"
   loop: "{{ users_in_groups }}"
 
-# - name: "USER | SSH keys: {{ user.name }}"
-#   ansible.posix.authorized_key:
-#     comment: "Ansible managed {{ user.name }}@{{ admins_group }}"
-#     exclusive: true
-#     key: "{{ lookup('file', admins_ssh_dir + '/' + user.name + '.pub') }}"
-#     follow: false
-#     user: "{{ user.name }}"
-#     manage_dir: true
-#     key_options: "{{ user.ssh_key_options | default(omit) }}"
-#     state: present
-#   when:
-#     - ( user.state | default('present') ) != 'absent'
+- name: "USER | Add SSH keys"
+  ansible.posix.authorized_key:
+    comment: "Ansible managed {{ item.name }}@{{ item.group }}"
+    exclusive: true
+    key: "{{ lookup('file', ssh_keys_dir + '/' + item.name + '.pub') }}"
+    follow: false
+    user: "{{ item.name }}"
+    manage_dir: true
+    key_options: "{{ item.ssh_key_options | default(omit) }}"
+    state: present
+  loop: "{{ users_in_groups }}"
+  when:
+    - ( item.state | default('present') ) != 'absent'

@@ -1,5 +1,5 @@
 ---
-- name: GROUPS | Ensure group "{{ item.key }}" exists
+- name: GROUPS | Ensure user's groups exists
   ansible.builtin.group:
     name: "{{ item.key }}"
     state: present
