@@ -1,7 +1,7 @@
 ---
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
-    image: quay.io/centos/centos:stream8
+    image: docker.io/geerlingguy/docker-ubuntu2404-ansible
     pre_build_image: true

@@ -1,0 +1,19 @@
+[project]
+name = "ansible-user-group"
+version = "1.0.0"
+description = ""
+authors = [
+    {name = "Artem Shestakov",email = "artem.s.shestakov@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ansible (>=11.1.0,<12.0.0)",
+    "molecule (>=24.12.0,<25.0.0)",
+    "molecule-plugins[podman] (>=23.6.0,<24.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
