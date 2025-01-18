@@ -1,12 +1,20 @@
 ---
-ssh_keys_dir: files/ssh_keys
-# user_groups: {}
-user_groups:
-  admins:
-    - name: admin
-  users:
-    - name: user01
-    - name: user02
-      append: True
-      groups:
-        - users
+user_groups: {}
+# Example:
+# 
+# user_groups:
+#   admins:
+#     - name: admin
+#       ssh_keys:
+#         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGEzQZxFdvV7cbNhZrn9OCnbX2T0juT/VEJNo2kM4hc artem@fedora 
+#         - ssh-ed25519 BBBBC3NzaC1lZDI1NTE5AAAAILGEzQZxFdvV7cbNhZrn9OCnbX2T0juT/VEJNo2kM4hc artem@fedora
+#   users:
+#     - name: user01
+#       ssh_keys:
+#         - ssh-ed25519 CCCCC3NzaC1lZDI1NTE5AAAAILGEzQZxFdvV7cbNhZrn9OCnbX2T0juT/VEJNo2kM4hc artem@fedora
+#     - name: user02
+#       ssh_keys:
+#         - ssh-ed25519 DDDDC3NzaC1lZDI1NTE5AAAAILGEzQZxFdvV7cbNhZrn9OCnbX2T0juT/VEJNo2kM4hc artem@fedora
+#       append: True
+#       groups:
+#         - users
