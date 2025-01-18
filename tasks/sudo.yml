@@ -6,6 +6,7 @@
     runas: "{{ item.value.sudo.runas }}"
     commands: "{{ item.value.sudo.commands }}"
     nopassword: "{{ item.sudo.nopassword | default(false)}}"
+    state: "{{ item.value.state | default('present') }}"
   loop: "{{ lookup('ansible.builtin.dict', user_groups) }}"
   when:
     - item.value.sudo is defined
@@ -18,6 +19,7 @@
     runas: "{{ item.sudo.runas }}"
     commands: "{{ item.sudo.commands }}"
     nopassword: "{{ item.sudo.nopassword | default(false)}}"
+    state: "{{ item.sudo.state | default('present') }}"
   loop: "{{ users_in_groups }}"
   when:
     - ( item.state | default('present') ) != 'absent'
