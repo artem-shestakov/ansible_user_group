@@ -2,7 +2,7 @@
 users_in_groups: "\
 {% set _users_in_groups = [] %}\
 {% for _group, _users in user_groups.items() %}\
-  {% for _user in _users %}\
+  {% for _user in _users.users %}\
     {%- set _ = _user.update({'group': _group}) -%}\
     {{ _users_in_groups.append(_user) }}\
   {% endfor %}\

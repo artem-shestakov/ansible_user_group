@@ -1,0 +1,25 @@
+---
+- name: SUDO | Setup group
+  community.general.sudoers:
+    name: "{{ item.key }}_{{ item.value.sudo.name }}"
+    group: "{{ item.key }}"
+    runas: "{{ item.value.sudo.runas }}"
+    commands: "{{ item.value.sudo.commands }}"
+    nopassword: "{{ item.sudo.nopassword | default(false)}}"
+  loop: "{{ lookup('ansible.builtin.dict', user_groups) }}"
+  when:
+    - item.value.sudo is defined
+    - item.value.sudo != {}
+
+- name: SUDO | Setup users
+  community.general.sudoers:
+    name: "{{ item.name }}_{{ item.sudo.name }}"
+    user: "{{ item.name }}"
+    runas: "{{ item.sudo.runas }}"
+    commands: "{{ item.sudo.commands }}"
+    nopassword: "{{ item.sudo.nopassword | default(false)}}"
+  loop: "{{ users_in_groups }}"
+  when:
+    - ( item.state | default('present') ) != 'absent'
+    - item.sudo is defined
+    - item.sudo != {}

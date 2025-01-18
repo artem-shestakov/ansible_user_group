@@ -23,3 +23,7 @@
 - name: MAIN | Create users
   ansible.builtin.import_tasks: users.yml
   tags: users
+
+- name: MAIN | Setup sudoers
+  ansible.builtin.import_tasks: sudo.yml
+  tags: sudo
