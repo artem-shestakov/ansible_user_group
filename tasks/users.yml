@@ -17,7 +17,7 @@
     group: "{{ item.group }}"
     groups: "{{ item.groups | default(omit) }}"
     create_home: true
-    system: false
+    system: "{{ item.system | default(false)}}"
     force: true
     remove: "{{ item.remove | default(true) }}"
   loop: "{{ users_in_groups }}"
@@ -35,3 +35,4 @@
   loop: "{{ users_in_groups }}"
   when:
     - ( item.state | default('present') ) != 'absent'
+    - ( item.system | default(false) ) != true

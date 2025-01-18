@@ -12,6 +12,7 @@ user_groups: {}
 #     - name: user01
 #       ssh_keys:
 #         - ssh-ed25519 CCCCC3NzaC1lZDI1NTE5AAAAILGEzQZxFdvV7cbNhZrn9OCnbX2T0juT/VEJNo2kM4hc artem@fedora
+#       system: true
 #     - name: user02
 #       ssh_keys:
 #         - ssh-ed25519 DDDDC3NzaC1lZDI1NTE5AAAAILGEzQZxFdvV7cbNhZrn9OCnbX2T0juT/VEJNo2kM4hc artem@fedora
